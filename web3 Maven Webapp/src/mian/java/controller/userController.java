@@ -3,15 +3,19 @@ package controller;
 import java.util.Map;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import model.user;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import common.commonResponse;
+import common.responseRows;
 import service.IuserService;
 
 @Controller
@@ -20,7 +24,7 @@ public class userController {
 
 	@Resource
 	private IuserService service;
-	
+	//private User user;
 	
 	/**
 	 * @param enterprise
@@ -40,8 +44,13 @@ public class userController {
 	@ResponseBody
 	@RequestMapping(value="/modify")
 	public Map<String, Object> modify(user user){
-		service.modify(user);
-		return commonResponse.getResonse1();
+		service.modify(user);//
+		//
+		//mo.addAttribute(user);
+		//${user.username}
+		//req.getRequestDispatcher("edit.jsp").forward(req, res);
+		//res.sendRedirect("")
+		return commonResponse.getResonse1();//  success  user save.jsp  update.jsp success.jsp list.jsp  redirect:success   success.jsp    "save"    save.jsp
 	}
 	
 	
@@ -156,7 +165,15 @@ public class userController {
 		return map;
 	}
 	
-	
+	@RequestMapping("/save")
+	private responseRows save(int page,int pageSize) {
+		responseRows rr = new responseRows();
+		rr.setTotal(1);
+		rr.setRows(service.list(page, pageSize));
+		
+		//{total:1,code:,msg:,rows:[{},{}]}
+		return rr;
+	}
 	
 	
 	

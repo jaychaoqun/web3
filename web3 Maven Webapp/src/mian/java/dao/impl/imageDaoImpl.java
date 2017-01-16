@@ -30,7 +30,7 @@ public class imageDaoImpl implements IimageDao {
 	}
 
 	@Override
-	public void delete(String id) {
+	public void delete(String id) {//hibernate ql  
 		getSession().createQuery("delete from image where id='"+id+"'").executeUpdate();
 	}
 
